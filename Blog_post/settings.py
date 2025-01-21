@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -75,9 +76,30 @@ WSGI_APPLICATION = 'Blog_post.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'blogger',
+        'CLIENT': {
+            'host': 'mongodb://localhost:27017/',
+        }
     }
+}
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 500,
+    'width': 800,
+    'theme': 'advanced',
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'plugins': 'link image preview codesample table',
+    'toolbar1': 'undo redo | bold italic underline | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent | table | link image | preview | forecolor backcolor | codesample',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+    'theme_advanced_buttons1': "save,newdocument,|,bold,italic,underline,strikethrough,|,\
+        justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+    
+    'api_key': '1xlew74dr2nk9fugjze52m81wmaz0hoxkpusbpe1n0w6xt35',
 }
 
 
