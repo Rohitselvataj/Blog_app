@@ -1,8 +1,4 @@
 from django.db import models
-
-# Create your models here.
-# blog/models.py
-
 from bson.objectid import ObjectId
 from .mongo import collection
 from tinymce.widgets import TinyMCE
@@ -25,6 +21,7 @@ class Post:
         }
         result = collection.insert_one(post_data)
         return str(result.inserted_id)
+        
 
     @staticmethod
     def get_all():
@@ -45,8 +42,8 @@ class Post:
 class DummyPost(models.Model):
     title = models.CharField(max_length=200)
     content = HTMLField()
-    media = models.CharField(max_length=200, blank=True, null=True)  # Add this line for media
-    labels = models.CharField(max_length=200, blank=True, null=True)  # Keep labels
+    media = models.CharField(max_length=200, blank=True, null=True)  
+    labels = models.CharField(max_length=200, blank=True, null=True)  
 
     class Meta:
         managed = False

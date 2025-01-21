@@ -7,29 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 
     
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#content',
+            plugins: 'lists link image media',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image media | pagebreak',
+        });
+    </script>
     <script src="https://cdn.tiny.cloud/1/1xlew74dr2nk9fugjze52m81wmaz0hoxkpusbpe1n0w6xt35/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
 <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
-<script>
-  tinymce.init({
-    selector: 'textarea',
-    plugins: [
-      // Core editing features
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-      // Your account includes a free trial of TinyMCE premium features
-      // Try the most popular premium features until Feb 4, 2025:
-      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
-    ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
-  });
-</script>
+
 
 
 
@@ -45,6 +34,8 @@
             <div class="form-group">
                 <label for="content">Content:</label>
                 <textarea id="content" name="content"></textarea>
+                <input type="text" id="title" name="context
+            " required>
             </div>
             <div class="form-group">
                 <label for="media">Upload Media:</label>
