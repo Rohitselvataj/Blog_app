@@ -67,3 +67,40 @@ def add_comment(request):
                 'author': request.user.username
             })
             return redirect('view_post', post_id=form.cleaned_data['post_id'])
+def edit_post(request, post_id):
+    post_data = Post.get_by_id(post_id)  # Assuming you have a method to get a post by ID
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            updated_data = {
+                'title': form.cleaned_data['title'],
+                'content': form.cleaned_data['content'],
+                'labels': form.cleaned_data['labels'],
+                # Handle images/videos if needed
+            }
+            Post.update(post_id, updated_data)  # Assuming you have a method to update a post
+            return redirect('dashboard')
+    else:
+        # Pre-fill the form with existing post data
+        initial_data = {
+            'title': post_data['title'],
+            'content': post_data['content'],
+            'labels': post_data.get('labels', None),
+            # Add any other fields you want to pre-fill
+        }
+        form = PostForm(initial=initial_data)
+    return render(request, 'blog/edit_post.html', {'form': form, 'post': post_data})
+
+def delete_post(request, post_id):
+    # Assuming you have a method to delete a post
+    collection.delete_one({'_id': post_id})  # Delete the post from MongoDB
+    return redirect('my_posts')
+
+@csrf_exempt  # Use with caution; consider using CSRF tokens for security
+def upload_image(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        image = request.FILES['image']
+        # Handle the image upload logic here
+        return JsonResponse({'location': '/path/to/image'})  # Return the image URL
+    return JsonResponse({'error': 'Image upload failed'}, status=400)
+
