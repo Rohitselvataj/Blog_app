@@ -16,7 +16,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('dashboard')
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -47,7 +47,7 @@ def create_post(request):
                 'title': form.cleaned_data['title'],
                 'content': form.cleaned_data['content'],
                 'author': request.user.username
-            })
+            }) 
             return redirect('dashboard')
     else:
         form = PostForm()
