@@ -6,12 +6,11 @@
 <body>
     <h1>Welcome, {{ user.username }}</h1>
     <a href="{% url 'create_post' %}">Create a Post</a>
-    <a href="{% url 'logout' %}">Logout</a>
     <h2>Posts</h2>
     <ul>
         {% for post in posts %}
             <li>
-                <a href="{% url 'view_post' post._id %}">{{ post.title }}</a> by {{ post.author }}
+                <a href="{% url 'view_post' post.str_id %}">{{ post.title }}</a> by {{ post.author }}
             </li>
         {% endfor %}
     </ul>

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from pymongo import MongoClient
-
+from bson.objectid import ObjectId
 from .forms import CommentForm, PostForm
 
 
@@ -35,6 +35,8 @@ def user_login(request):
 
 def dashboard(request):
     posts = list(posts_collection.find())
+    for post in posts:
+        post['str_id'] = str(post['_id'])
     return render(request, 'dashboard.html', {'posts': posts})
 
 def create_post(request):
@@ -52,10 +54,11 @@ def create_post(request):
     return render(request, 'create_post.html', {'form': form})
 
 def view_post(request, post_id):
-    post = posts_collection.find_one({'_id': post_id})
+    # Convert the string `post_id` to ObjectId
+    post = posts_collection.find_one({'_id': ObjectId(post_id)})
     comments = list(comments_collection.find({'post_id': post_id}))
-    form = CommentForm(initial={'post_id': post_id})
-    return render(request, 'view_post.html', {'post': post, 'comments': comments, 'form': form})
+    comment_form = CommentForm(initial={'post_id': post_id})
+    return render(request, 'view_post.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
 
 def add_comment(request):
     if request.method == 'POST':
