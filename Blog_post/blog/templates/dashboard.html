@@ -11,7 +11,7 @@
         {% for post in posts %}
             <li>
                 <a href="{% url 'view_post' post.str_id %}">{{ post.title }}</a> by {{ post.author }}
-                <a href="{% url 'delete_post' post.str_id %}" class="delete-button" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+                <a href="{% url 'delete_post' post.str_id %}" class="delete-button" onclick="return confirm('You want to delete it !!!');">Delete</a>
             </li>
         {% endfor %}
     </ul>

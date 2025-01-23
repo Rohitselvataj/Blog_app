@@ -54,7 +54,6 @@ def create_post(request):
     return render(request, 'create_post.html', {'form': form})
 
 def view_post(request, post_id):
-    # Convert the string `post_id` to ObjectId
     post = posts_collection.find_one({'_id': ObjectId(post_id)})
     comments = list(comments_collection.find({'post_id': post_id}))
     comment_form = CommentForm(initial={'post_id': post_id})
