@@ -2,17 +2,109 @@
 <html lang="en">
 <head>
     <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9fc;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li a {
+            color: #4CAF50;
+            font-size: 16px;
+        }
+
+        li a:hover {
+            color: #388e3c;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .create-post-link {
+            margin: 20px 0;
+            display: inline-block;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-post-link:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, {{ user.username }}</h1>
-    <a href="{% url 'create_post' %}">Create a Post</a>
-    <h2>Posts</h2>
-    <ul>
-        {% for post in posts %}
-            <li>
-                <a href="{% url 'view_post' post.str_id %}">{{ post.title }}</a> by {{ post.author }}
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>Welcome, {{ user.username }}</h1>
+        <a href="{% url 'create_post' %}" class="create-post-link">Create a Post</a>
+        <h2>Posts</h2>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <a href="{% url 'view_post' post.str_id %}">{{ post.title }}</a>
+                    <span>by {{ post.author }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
