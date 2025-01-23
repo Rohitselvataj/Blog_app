@@ -70,3 +70,15 @@ def add_comment(request):
                 'author': request.user.username
             })
             return redirect('view_post', post_id=form.cleaned_data['post_id'])
+
+def delete_post(request, post_id):
+    if request.user.is_authenticated:
+        post = posts_collection.find_one({'_id': ObjectId(post_id)})
+        if post and post['author'] == request.user.username:
+            posts_collection.delete_one({'_id': ObjectId(post_id)})
+        else:
+            return render(request, 'dashboard.html', {
+                'posts': list(posts_collection.find()),
+                'error': 'You are not authorized to delete this post.'
+            })
+    return redirect('dashboard')
